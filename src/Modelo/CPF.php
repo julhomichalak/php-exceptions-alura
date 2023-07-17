@@ -4,7 +4,7 @@ namespace Alura\Banco\Modelo;
 
 final class CPF
 {
-    private $numero;
+    private string $numero;
 
     public function __construct(string $numero)
     {
@@ -13,11 +13,8 @@ final class CPF
                 'regexp' => '/^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}$/'
             ]
         ]);
-
         if ($numero === false) {
-            //lançar uma exceção
-            echo "Cpf inválido";
-            exit();
+            throw new \InvalidArgumentException();
         }
         $this->numero = $numero;
     }

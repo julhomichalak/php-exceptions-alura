@@ -5,14 +5,15 @@ function funcao1()
     echo 'Entrei na função 1' . PHP_EOL;
     try{
         funcao2();
-    }catch(RuntimeException | DivisionByZeroError $problema){
+    }catch(Throwable $problema){
         echo $problema->getMessage() . PHP_EOL;
         echo $problema->getLine() . PHP_EOL;
         echo $problema->getTraceAsString() . PHP_EOL;
-        throw new RuntimeException(
-            'Execeção foi tratada, mas pega aí'
-        );
-    }
+    }/*catch(Error $erro){
+        echo $erro->getMessage() . PHP_EOL;
+        echo $erro->getLine() . PHP_EOL;
+        echo $erro->getTraceAsString() . PHP_EOL;
+    }*/
 
     echo 'Saindo da função 1' . PHP_EOL;
 }
@@ -20,7 +21,8 @@ function funcao1()
 function funcao2()
 {
     echo 'Entrei na função 2' . PHP_EOL;
-    throw new RuntimeException();
+    intdiv(5, 0);
+    throw new BadMethodCallException('Essa é uma mensagem de exceção');
 
    /*    for ($i = 1; $i <= 5; $i++) {
         echo $i . PHP_EOL;
