@@ -3,19 +3,28 @@
 function funcao1()
 {
     echo 'Entrei na função 1' . PHP_EOL;
-    // $arrayFixo = new SplFixedArray(2);
-    // $arrayFixo[3] = 'Valor';
-    //$divisao = intdiv(5, 0);
-    funcao2();
+    try{
+        funcao2();
+    }catch(RuntimeException | DivisionByZeroError $problema){
+        echo $problema->getMessage() . PHP_EOL;
+        echo $problema->getLine() . PHP_EOL;
+        echo $problema->getTraceAsString() . PHP_EOL;
+        throw new RuntimeException(
+            'Execeção foi tratada, mas pega aí'
+        );
+    }
+
     echo 'Saindo da função 1' . PHP_EOL;
 }
 
 function funcao2()
 {
     echo 'Entrei na função 2' . PHP_EOL;
-    for ($i = 1; $i <= 5; $i++) {
+    throw new RuntimeException();
+
+   /*    for ($i = 1; $i <= 5; $i++) {
         echo $i . PHP_EOL;
-    }
+    }*/
     //print_r(debug_backtrace());
     echo 'Saindo da função 2' . PHP_EOL;
 }
